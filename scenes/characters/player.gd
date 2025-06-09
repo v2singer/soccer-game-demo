@@ -4,9 +4,11 @@ extends CharacterBody2D
 const DURATION_TACKLE := 200
 
 enum ControlSchema{CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING}
+enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING}
 
+@export var ball : Ball
 @export var control_schema : ControlSchema
+@export var power : float
 @export var speed : float
 
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
@@ -56,3 +58,6 @@ func flip_sprites() -> void:
 		player_sprite.flip_h = false
 	elif heading == Vector2.LEFT:
 		player_sprite.flip_h = true
+
+func has_ball() -> bool:
+	return ball.carrier == self
