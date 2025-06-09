@@ -86,7 +86,7 @@ shape = SubResource("CircleShape2D_jsqxx")
 libraries = {
 &"": SubResource("AnimationLibrary_4frfw")
 }
-autoplay = "roll"
+autoplay = "idle"
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
 texture = ExtResource("3_wehov")
