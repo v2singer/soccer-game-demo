@@ -14,4 +14,5 @@ func on_animation_complete() -> void:
 
 func shoot_ball():
     print('shoot!')
+    print(state_data)
 
