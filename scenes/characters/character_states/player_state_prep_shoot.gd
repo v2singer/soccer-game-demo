@@ -9,18 +9,17 @@ var shot_direction := Vector2.ZERO
 var time_start_shot := Time.get_ticks_msec()
 
 func _enter_tree() -> void:
-	print("enter play prep_kick and velocity zero")
-	animation_player.play("prep_kick")
-	player.velocity = Vector2.ZERO
+    print("enter play prep_kick and velocity zero")
+    animation_player.play("prep_kick")
+    player.velocity = Vector2.ZERO
 
 func _process(delta: float) -> void:
-	shot_direction += KeyUtils.get_input_vector(player.control_schema) * delta
-	if KeyUtils.is_action_just_pressed(player.control_schema, KeyUtils.Action.SHOOT):
-		var duration_press := clampf(Time.get_ticks_msec() - time_start_shot, 0.0, DURATION_MAX_BOUNS)
-		var ease_time := duration_press / DURATION_MAX_BOUNS
-		var bonus := ease(ease_time, EASE_REWARD_FACTOR)
-		var shot_power := player.power * (1 + bonus)
-		shot_direction = shot_direction.normalized()
-		print(shot_power, shot_direction)
-		
-		
+    shot_direction += KeyUtils.get_input_vector(player.control_schema) * delta
+    if KeyUtils.is_action_just_pressed(player.control_schema, KeyUtils.Action.SHOOT):
+        var duration_press := clampf(Time.get_ticks_msec() - time_start_shot, 
+            0.0, DURATION_MAX_BOUNS)
+        var ease_time := duration_press / DURATION_MAX_BOUNS
+        var bonus := ease(ease_time, EASE_REWARD_FACTOR)
+        var shot_power := player.power * (1 + bonus)
+        shot_direction = shot_direction.normalized()
+        state_transition_requested.emit(Player.State.SHOOTING)

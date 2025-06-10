@@ -32,6 +32,10 @@ window/size/window_height_override=900
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
+
 [input]
 
 p1_left={

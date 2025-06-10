@@ -52,7 +52,7 @@ func set_heading() -> void:
 		heading = Vector2.RIGHT
 	elif velocity.x < 0:
 		heading = Vector2.LEFT
-		
+
 func flip_sprites() -> void:
 	if heading == Vector2.RIGHT:
 		player_sprite.flip_h = false
@@ -61,3 +61,8 @@ func flip_sprites() -> void:
 
 func has_ball() -> bool:
 	return ball.carrier == self
+
+
+func on_animation_complete() -> void:
+	if current_state != null:
+		current_state.on_animation_complete()
