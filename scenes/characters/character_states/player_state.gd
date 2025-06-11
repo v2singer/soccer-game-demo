@@ -4,13 +4,15 @@ extends Node
 signal state_transition_requested(new_state: Player.State, state_data: PlayerStateData)
 
 
+var ball : Ball = null
 var animation_player : AnimationPlayer = null
 var player : Player = null
 var state_data : PlayerStateData = PlayerStateData.new()
 
 
 func setup(context_player: Player, context_state_data: PlayerStateData, 
-        context_animation_player: AnimationPlayer) -> void:
+        context_animation_player: AnimationPlayer, context_ball) -> void:
+    ball = context_ball
     player = context_player
     state_data = context_state_data
     animation_player = context_animation_player
