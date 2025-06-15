@@ -17,3 +17,14 @@ func setup(context_ball: Ball, context_player_detection_area: Area2D, context_ca
 	sprite = context_sprite
 	player_detection_area = context_player_detection_area
 	animation_player = context_animation_player
+
+func set_ball_animation_from_velocity() -> void:
+	if ball.velocity == Vector2.ZERO:
+		animation_player.play("idle")
+
+	if ball.velocity.x > 0:
+		animation_player.play("roll")
+		animation_player.advance(0)
+	else:
+		animation_player.play_backwards("roll")
+		animation_player.advance(0)
