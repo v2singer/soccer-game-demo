@@ -1,6 +1,7 @@
 class_name BallStateFreeForm
 extends BallState
 
+const BOUNCINESS := 0.8
 const FRCTION_AIR := 35.0
 const FRCTION_GROUND := 250.0
 
@@ -18,4 +19,5 @@ func _process(delta: float) -> void:
 
 	var friction = FRCTION_AIR if ball.height > 0 else FRCTION_GROUND
 	ball.velocity = ball.velocity.move_toward(Vector2.ZERO, friction * delta)
+	process_gravity(delta, BOUNCINESS)
 	ball.move_and_collide(ball.velocity * delta)

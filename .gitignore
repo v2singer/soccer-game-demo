@@ -15,4 +15,6 @@ mono_crash.*.json
 assets.zip
 wxgame
 
+# mac and vim
 ._*
+*.swp
