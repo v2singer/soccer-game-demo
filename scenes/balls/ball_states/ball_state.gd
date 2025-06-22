@@ -39,4 +39,3 @@ func process_gravity(delta: float, bounciness: float=0.0) -> void:
 			if bounciness > 0 and ball.height_velocity < 0:
 				ball.height_velocity = - ball.height_velocity * bounciness
 				ball.velocity *= bounciness
-
