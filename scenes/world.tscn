@@ -8,6 +8,12 @@
 
 [node name="World" type="Node2D"]
 
+[node name="Camera" type="Camera2D" parent="."]
+limit_left = 0
+limit_top = 0
+limit_right = 850
+limit_bottom = 360
+
 [node name="Backgrounnd" type="Node2D" parent="."]
 
 [node name="Grass" type="Sprite2D" parent="Backgrounnd"]

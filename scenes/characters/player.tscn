@@ -170,6 +170,7 @@ hframes = 6
 vframes = 13
 
 [node name="ControlSprite" type="Sprite2D" parent="PlayerSprite"]
+unique_name_in_owner = true
 position = Vector2(0, -35)
 texture = ExtResource("3_dyp2m")
 centered = false
@@ -193,6 +194,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TeammateDetectionArea2D"]
+visible = false
 polygon = PackedVector2Array(0, -40, 280, -150, 330, -100, 330, 100, 280, 150, 0, 40)
 
 [node name="ShadowSprite" type="Sprite2D" parent="."]
