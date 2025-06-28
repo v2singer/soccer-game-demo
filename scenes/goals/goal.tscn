@@ -1,10 +1,13 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8dgdaj53xhjs"]
+[gd_scene load_steps=6 format=3 uid="uid://c8dgdaj53xhjs"]
 
 [ext_resource type="Texture2D" uid="uid://cnmonoexdyloq" path="res://assets/art/backgrounds/goal-bottom.png" id="1_e45id"]
 [ext_resource type="Script" uid="uid://864xlbexpsoe" path="res://scenes/goals/goal.gd" id="1_m61db"]
 [ext_resource type="Texture2D" uid="uid://b0l24jq55yrx4" path="res://assets/art/backgrounds/goal-top.png" id="2_6oxqv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m61db"]
+size = Vector2(26, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8t0mi"]
 size = Vector2(26, 2)
 
 [node name="Goal" type="Node2D"]
@@ -40,3 +43,6 @@ shape = SubResource("RectangleShape2D_m61db")
 [node name="TopFrame" type="StaticBody2D" parent="."]
 position = Vector2(-7, -67)
 collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TopFrame"]
+shape = SubResource("RectangleShape2D_8t0mi")
