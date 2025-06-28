@@ -41,7 +41,7 @@ collision_mask = 0
 shape = SubResource("RectangleShape2D_m61db")
 
 [node name="TopFrame" type="StaticBody2D" parent="."]
-position = Vector2(-7, -67)
+position = Vector2(7, -67)
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="TopFrame"]

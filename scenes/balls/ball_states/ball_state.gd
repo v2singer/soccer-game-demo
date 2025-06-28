@@ -42,6 +42,7 @@ func process_gravity(delta: float, bounciness: float=0.0) -> void:
 
 func move_and_bounce(delta: float) -> void:
 	var collision := ball.move_and_collide(ball.velocity * delta)
-	if collision != null:
-		ball.velocity = ball.velocity.bounce(collision.get_normal() * ball.BOUNCINESS)
+	# fix collision is Player bug, why here found Player
+	if collision != null and collision.get_collider() is not Player:
+		ball.velocity = ball.velocity.bounce(collision.get_normal()) * ball.BOUNCINESS
 		ball.switch_state(Ball.State.FREEFORM)

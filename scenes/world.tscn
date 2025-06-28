@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://fd2ar53v4j4p"]
+[gd_scene load_steps=9 format=3 uid="uid://fd2ar53v4j4p"]
 
 [ext_resource type="Texture2D" uid="uid://itwqs3sgwebj" path="res://assets/art/backgrounds/pitch-background.png" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://ccjxk6bt1hprp" path="res://scenes/camera.gd" id="1_qfnet"]
@@ -7,16 +7,18 @@
 [ext_resource type="PackedScene" uid="uid://xl0q428f40yn" path="res://scenes/characters/player.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://bnhqehiihiqdn" path="res://scenes/balls/ball.tscn" id="5_71j4m"]
 [ext_resource type="PackedScene" uid="uid://c8dgdaj53xhjs" path="res://scenes/goals/goal.tscn" id="5_i7141"]
+[ext_resource type="Texture2D" uid="uid://cml8qs7gft0j8" path="res://assets/art/backgrounds/top-wall.png" id="6_4mrxx"]
 
 [node name="World" type="Node2D"]
 
-[node name="Camera" type="Camera2D" parent="."]
+[node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("ball")]
 limit_left = 0
 limit_top = 0
 limit_right = 850
 limit_bottom = 360
 position_smoothing_enabled = true
 script = ExtResource("1_qfnet")
+ball = NodePath("../ActorsContainer/Ball")
 
 [node name="Backgrounnd" type="Node2D" parent="."]
 
@@ -48,10 +50,19 @@ position = Vector2(32, 220)
 position = Vector2(818, 220)
 scale = Vector2(-1, 1)
 
+[node name="TopWall" type="Sprite2D" parent="ActorsContainer/PitchObjects"]
+texture = ExtResource("6_4mrxx")
+centered = false
+offset = Vector2(49, 32)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ActorsContainer/PitchObjects/TopWall"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActorsContainer/PitchObjects/TopWall/StaticBody2D"]
+polygon = PackedVector2Array(49, 148, 62, 32, 788, 32, 801, 148, 788, 148, 776, 44, 75, 44, 62, 148)
+
 [node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
 position = Vector2(173, 105)
 ball = NodePath("../Ball")
-power = 50.0
 
 [node name="Player2" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
 position = Vector2(195, 160)
@@ -67,3 +78,4 @@ control_schema = 0
 position = Vector2(214, 119)
 collision_layer = 2
 collision_mask = 3
+sync_to_physics = false
