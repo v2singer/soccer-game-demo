@@ -11,10 +11,8 @@ func on_animation_complete() -> void:
 	var pass_target := find_teammate_in_view()
 	print('pass target is: ', pass_target)
 	if pass_target == null:
-		print('not target:', player.heading * player.speed)
 		ball.pass_to(ball.position + player.heading * player.speed)
 	else:
-		print('has target:', pass_target.position , pass_target.velocity)
 		ball.pass_to(pass_target.position + pass_target.velocity)
 	transition_state(Player.State.MOVING)
 
