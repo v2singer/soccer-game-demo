@@ -160,7 +160,8 @@ height = 18.0
 collision_layer = 2
 script = ExtResource("1_yewv4")
 control_schema = 1
-speed = 100.0
+power = 150.0
+speed = 80.0
 
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 texture = ExtResource("1_rp718")

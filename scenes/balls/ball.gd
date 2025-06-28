@@ -3,8 +3,8 @@ extends AnimatableBody2D
 
 enum State {CARRIED, FREEFORM, SHOOT}
 
-@export var dribble_frequency : float = 1.0
-@export var dribble_intensity : float = 2.0
+#@export var dribble_frequency : float = 1.0
+#@export var dribble_intensity : float = 2.0
 @export var frction_air : float = 35.0
 @export var frction_ground : float = 250.0
 
@@ -47,3 +47,6 @@ func pass_to(destination: Vector2) -> void:
 	velocity = intensity * direction
 	carrier = null
 	switch_state(Ball.State.FREEFORM)
+
+func stop() -> void:
+	velocity = Vector2.ZERO
