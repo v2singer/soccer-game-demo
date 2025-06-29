@@ -46,3 +46,6 @@ func move_and_bounce(delta: float) -> void:
 	if collision != null and collision.get_collider() is not Player:
 		ball.velocity = ball.velocity.bounce(collision.get_normal()) * ball.BOUNCINESS
 		ball.switch_state(Ball.State.FREEFORM)
+
+func can_air_interact() -> bool:
+	return false
