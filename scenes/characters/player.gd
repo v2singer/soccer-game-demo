@@ -11,6 +11,8 @@ const CONTROL_SPRITE_MAP : Dictionary = {
 const GRAVITY := 8.0
 
 enum ControlSchema{CPU, P1, P2}
+enum Role {TM}
+enum SkinColor {Black}
 enum State {CHEST_CONTROL, MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
 
 @export var ball : Ball
@@ -102,5 +104,3 @@ func on_animation_complete() -> void:
 func control_ball() -> void:
 	if ball.height > BALL_CONTROL_HEIGHT_MAX:
 		switch_state(Player.State.CHEST_CONTROL)
-
-
