@@ -6,8 +6,6 @@ const DISTANCE_HIGH_PASS := 130.0
 
 enum State {CARRIED, FREEFORM, SHOOT}
 
-@export var air_connect_min_height : float = 10.0
-@export var air_connect_max_height : float = 30.0
 @export var frction_air : float = 35.0
 @export var frction_ground : float = 250.0
 
@@ -60,5 +58,5 @@ func stop() -> void:
 func can_air_interact() -> bool:
 	return current_state != null and current_state.can_air_interact()
 
-func can_air_connect() -> bool:
+func can_air_connect(air_connect_min_height: float, air_connect_max_height: float) -> bool:
 	return height >= air_connect_min_height and height <= air_connect_max_height

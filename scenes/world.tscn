@@ -100,19 +100,25 @@ offset = Vector2(0, -14)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActorsContainer/PitchObjects/RightWall/StaticBody2D"]
 polygon = PackedVector2Array(14, 0, 26, 0, 13, 116, 1, 116)
 
-[node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
+[node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_k0juu")]
 position = Vector2(173, 105)
 ball = NodePath("../Ball")
+own_goal = NodePath("../PitchObjects/GoalHome")
+target_goal = NodePath("../PitchObjects/GoalAway")
 
-[node name="Player2" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
+[node name="Player2" parent="ActorsContainer" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_k0juu")]
 position = Vector2(195, 160)
 ball = NodePath("../Ball")
 control_schema = 2
+own_goal = NodePath("../PitchObjects/GoalHome")
+target_goal = NodePath("../PitchObjects/GoalAway")
 
-[node name="Player3" parent="ActorsContainer" node_paths=PackedStringArray("ball") instance=ExtResource("4_k0juu")]
+[node name="Player3" parent="ActorsContainer" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_k0juu")]
 position = Vector2(116, 110)
 ball = NodePath("../Ball")
 control_schema = 0
+own_goal = NodePath("../PitchObjects/GoalHome")
+target_goal = NodePath("../PitchObjects/GoalAway")
 
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("5_71j4m")]
 position = Vector2(214, 119)

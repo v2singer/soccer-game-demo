@@ -1,8 +1,7 @@
 class_name Player
 extends CharacterBody2D
 
-const DURATION_TACKLE := 200
-
+const BALL_CONTROL_HEIGHT_MAX := 10.0
 const CONTROL_SPRITE_MAP : Dictionary = {
 	ControlSchema.CPU : preload("res://assets/art/props/cpu.png"),
 	ControlSchema.P1 : preload("res://assets/art/props/1p.png"),
@@ -12,12 +11,14 @@ const CONTROL_SPRITE_MAP : Dictionary = {
 const GRAVITY := 8.0
 
 enum ControlSchema{CPU, P1, P2}
-enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
+enum State {CHEST_CONTROL, MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
 
 @export var ball : Ball
 @export var control_schema : ControlSchema
+@export var own_goal : Goal
 @export var power : float
 @export var speed : float
+@export var target_goal : Goal
 
 @onready var animation_player : AnimationPlayer = %AnimationPlayer
 @onready var control_sprite : Sprite2D = %ControlSprite
@@ -51,7 +52,8 @@ func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateDat
 		current_state.queue_free()
 
 	current_state = state_factory.get_fresh_state(set_state)
-	current_state.setup(self, state_data, animation_player, ball, teammate_detection_area, ball_detection_area)
+	current_state.setup(self, state_data, animation_player, ball,
+		teammate_detection_area, ball_detection_area, own_goal, target_goal)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(set_state)
 	call_deferred("add_child", current_state)
@@ -96,3 +98,9 @@ func set_sprite_visibility() -> void:
 func on_animation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete()
+
+func control_ball() -> void:
+	if ball.height > BALL_CONTROL_HEIGHT_MAX:
+		switch_state(Player.State.CHEST_CONTROL)
+
+
