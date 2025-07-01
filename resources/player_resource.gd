@@ -1,4 +1,4 @@
-class_name PlayerResources
+class_name PlayerResource
 extends Resource
 
 @export var full_name : String

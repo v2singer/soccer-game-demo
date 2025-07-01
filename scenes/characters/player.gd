@@ -11,9 +11,9 @@ const CONTROL_SPRITE_MAP : Dictionary = {
 const GRAVITY := 8.0
 
 enum ControlSchema{CPU, P1, P2}
-enum Role {TM}
-enum SkinColor {Black}
-enum State {CHEST_CONTROL, MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK}
+enum Role {GOALTE, DEFENSE, MIDFIELD, OFFENSE}
+enum SkinColor {LIGHT, MEDIUM, DARK}
+enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL}
 
 @export var ball : Ball
 @export var control_schema : ControlSchema
@@ -29,11 +29,13 @@ enum State {CHEST_CONTROL, MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, P
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 
 var current_state : PlayerState = null
+var fullname := ""
 var heading := Vector2.RIGHT
 var height := 0.0
 var height_velocity := 0.0
 var state := State.MOVING
-var time_start_tackle := Time.get_ticks_msec()
+var role := Player.Role.MIDFIELD
+var skin_color := Player.SkinColor.MEDIUM
 var state_factory := PlayerStateFactory.new()
 
 
@@ -48,6 +50,16 @@ func _process(delta: float) -> void:
 	process_gravity(delta)
 	move_and_slide()
 
+func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResource) -> void:
+	position = c_position
+	ball = c_ball
+	own_goal = c_own_goal
+	target_goal = c_target_goal
+	fullname = c_player_data.full_name
+	role = c_player_data.role
+	skin_color = c_player_data.skin_color
+	speed = c_player_data.speed
+	power = c_player_data.power
 
 func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:

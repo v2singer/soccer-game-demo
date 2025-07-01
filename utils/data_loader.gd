@@ -23,5 +23,18 @@ func _init() -> void:
 			var role := player["role"] as Player.Role
 			var speed := player["speed"] as float
 			var power := player["power"] as float
-			var player_resource := PlayerResources(fullname, skin, role, speed, power)
+			var player_resource := PlayerResource.new(fullname, skin, role, speed, power)
 			squads.get(country_name).append(player_resource)
+		assert(players.size() > 6)
+
+	json_file.close()
+
+
+func get_squad(country: String) -> Array:
+	if squads.has(country):
+		return squads.get(country)
+	return []
+
+
+
+
