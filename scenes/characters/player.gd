@@ -8,6 +8,7 @@ const CONTROL_SPRITE_MAP : Dictionary = {
 	ControlSchema.P2 : preload("res://assets/art/props/2p.png")
 }
 
+const COUNTISER := ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA"]
 const GRAVITY := 8.0
 
 enum ControlSchema{CPU, P1, P2}
@@ -28,6 +29,7 @@ enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER,
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea2D
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 
+var country : String = ""
 var current_state : PlayerState = null
 var fullname := ""
 var heading := Vector2.RIGHT
@@ -42,6 +44,7 @@ var state_factory := PlayerStateFactory.new()
 func _ready() -> void:
 	set_control_texture()
 	switch_state(State.MOVING)
+	set_shader_properties()
 
 
 func _process(delta: float) -> void:
@@ -50,7 +53,15 @@ func _process(delta: float) -> void:
 	process_gravity(delta)
 	move_and_slide()
 
-func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResource) -> void:
+
+func set_shader_properties() -> void:
+	player_sprite.material.set_shader_properties("skin_color", skin_color)
+	var country_color := COUNTISER.find(country)
+	country_color = clampi(country_color, 0, COUNTISER.size() - 1)
+	player_sprite.material.set_shader_properties("team_color", country_color)
+
+
+func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResource, c_country: String) -> void:
 	position = c_position
 	ball = c_ball
 	own_goal = c_own_goal
@@ -60,6 +71,8 @@ func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_go
 	skin_color = c_player_data.skin_color
 	speed = c_player_data.speed
 	power = c_player_data.power
+	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
+	country = c_country
 
 func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:

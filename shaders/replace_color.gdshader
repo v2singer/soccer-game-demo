@@ -3,9 +3,10 @@ shader_type canvas_item;
 group_uniforms Palettes;
 uniform sampler2D skin_palette;
 uniform sampler2D team_palette;
-uniform int skin_color;
-uniform int team_color;
 group_uniforms;
+
+uniform int skin_color : hint_enum("Light", "Medium", "Dark");
+uniform int team_color;
 
 vec2 px_to_uv(ivec2 pos, ivec2 tex_size) {
 	return vec2(
@@ -13,6 +14,7 @@ vec2 px_to_uv(ivec2 pos, ivec2 tex_size) {
 		(float(pos[1]) + 0.5)  / float(tex_size[1])
 	);
 }
+
 
 vec4 get_palette_color(vec4 color, sampler2D palette, int selection) {
 	ivec2 tex_size = textureSize(palette, 0);
@@ -31,4 +33,7 @@ vec4 get_palette_color(vec4 color, sampler2D palette, int selection) {
 
 void fragment() {
 	COLOR = get_palette_color(COLOR, team_palette, team_color);
+	if (skin_color >0){
+		COLOR = get_palette_color(COLOR,skin_palette,skin_color);
+	}
 }

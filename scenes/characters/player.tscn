@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bjfov8skx2h85" path="res://assets/art/palettes/skin-colors-palette.png" id="3_eojnx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eojnx"]
+resource_local_to_scene = true
 shader = ExtResource("2_kqtwu")
 shader_parameter/skin_palette = ExtResource("3_eojnx")
 shader_parameter/team_palette = ExtResource("3_6eyoc")
