@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://fd2ar53v4j4p"]
+[gd_scene load_steps=12 format=3 uid="uid://fd2ar53v4j4p"]
 
 [ext_resource type="Texture2D" uid="uid://itwqs3sgwebj" path="res://assets/art/backgrounds/pitch-background.png" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://ccjxk6bt1hprp" path="res://scenes/camera.gd" id="1_qfnet"]
 [ext_resource type="Texture2D" uid="uid://byo66worhf38m" path="res://assets/art/backgrounds/pitch-pattern.png" id="2_rwgxs"]
 [ext_resource type="Texture2D" uid="uid://c7f2anod5kq6g" path="res://assets/art/backgrounds/pitch-lines.png" id="3_4wyf3"]
-[ext_resource type="PackedScene" uid="uid://xl0q428f40yn" path="res://scenes/characters/player.tscn" id="4_k0juu"]
 [ext_resource type="PackedScene" uid="uid://bnhqehiihiqdn" path="res://scenes/balls/ball.tscn" id="5_71j4m"]
 [ext_resource type="Script" uid="uid://bwigry4nmeguw" path="res://scenes/actors_container.gd" id="5_e3hyu"]
 [ext_resource type="PackedScene" uid="uid://c8dgdaj53xhjs" path="res://scenes/goals/goal.tscn" id="5_i7141"]
@@ -128,26 +127,6 @@ offset = Vector2(0, -14)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ActorsContainer/PitchObjects/RightWall/StaticBody2D"]
 polygon = PackedVector2Array(14, 0, 26, 0, 13, 116, 1, 116)
-
-[node name="Player" parent="ActorsContainer" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_k0juu")]
-position = Vector2(173, 105)
-ball = NodePath("../Ball")
-own_goal = NodePath("../PitchObjects/GoalHome")
-target_goal = NodePath("../PitchObjects/GoalAway")
-
-[node name="Player2" parent="ActorsContainer" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_k0juu")]
-position = Vector2(195, 160)
-ball = NodePath("../Ball")
-control_schema = 2
-own_goal = NodePath("../PitchObjects/GoalHome")
-target_goal = NodePath("../PitchObjects/GoalAway")
-
-[node name="Player3" parent="ActorsContainer" node_paths=PackedStringArray("ball", "own_goal", "target_goal") instance=ExtResource("4_k0juu")]
-position = Vector2(116, 110)
-ball = NodePath("../Ball")
-control_schema = 0
-own_goal = NodePath("../PitchObjects/GoalHome")
-target_goal = NodePath("../PitchObjects/GoalAway")
 
 [node name="Ball" parent="ActorsContainer" instance=ExtResource("5_71j4m")]
 position = Vector2(425, 180)

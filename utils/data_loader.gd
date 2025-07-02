@@ -4,7 +4,7 @@ var squads : Dictionary[String, Array]
 
 
 func _init() -> void:
-	var json_file := FileAccess.open("res://assets/jons/squads.json", FileAccess.READ)
+	var json_file := FileAccess.open("res://assets/json/squads.json", FileAccess.READ)
 	if json_file == null:
 		printerr("could not find or load json-file")
 	var json_text := json_file.get_as_text()
@@ -25,7 +25,7 @@ func _init() -> void:
 			var power := player["power"] as float
 			var player_resource := PlayerResource.new(fullname, skin, role, speed, power)
 			squads.get(country_name).append(player_resource)
-		assert(players.size() > 6)
+		assert(players.size() <= 6)
 
 	json_file.close()
 
@@ -34,7 +34,3 @@ func get_squad(country: String) -> Array:
 	if squads.has(country):
 		return squads.get(country)
 	return []
-
-
-
-

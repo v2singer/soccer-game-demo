@@ -39,7 +39,9 @@ var height_velocity := 0.0
 var state := State.MOVING
 var role := Player.Role.MIDFIELD
 var skin_color := Player.SkinColor.MEDIUM
+var spawn_position := Vector2.ZERO
 var state_factory := PlayerStateFactory.new()
+var weight_on_duty_steering := 0.0
 
 
 func _ready() -> void:
@@ -47,6 +49,7 @@ func _ready() -> void:
 	switch_state(State.MOVING)
 	set_shader_properties()
 	setup_ai_behavior()
+	spawn_position = position
 
 
 func _process(delta: float) -> void:
@@ -57,10 +60,10 @@ func _process(delta: float) -> void:
 
 
 func set_shader_properties() -> void:
-	player_sprite.material.set_shader_properties("skin_color", skin_color)
+	player_sprite.material.set_shader_parameter("skin_color", skin_color)
 	var country_color := COUNTISER.find(country)
 	country_color = clampi(country_color, 0, COUNTISER.size() - 1)
-	player_sprite.material.set_shader_properties("team_color", country_color)
+	player_sprite.material.set_shader_parameter("team_color", country_color)
 
 
 func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResource, c_country: String) -> void:
@@ -89,7 +92,7 @@ func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateDat
 
 	current_state = state_factory.get_fresh_state(set_state)
 	current_state.setup(self, state_data, animation_player, ball,
-		teammate_detection_area, ball_detection_area, own_goal, target_goal)
+		teammate_detection_area, ball_detection_area, own_goal, target_goal, ai_behavior)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(set_state)
 	call_deferred("add_child", current_state)
