@@ -29,6 +29,7 @@ enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER,
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea2D
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 
+var ai_behavior : AIBehavior = AIBehavior.new()
 var country : String = ""
 var current_state : PlayerState = null
 var fullname := ""
@@ -45,6 +46,7 @@ func _ready() -> void:
 	set_control_texture()
 	switch_state(State.MOVING)
 	set_shader_properties()
+	setup_ai_behavior()
 
 
 func _process(delta: float) -> void:
@@ -73,6 +75,13 @@ func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_go
 	power = c_player_data.power
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 	country = c_country
+
+
+func setup_ai_behavior() -> void:
+	ai_behavior.setup(self, ball)
+	ai_behavior.name = "AI Behavior"
+	add_child(ai_behavior)
+
 
 func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
 	if current_state != null:
