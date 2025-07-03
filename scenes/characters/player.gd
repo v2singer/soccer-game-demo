@@ -10,6 +10,7 @@ const CONTROL_SPRITE_MAP : Dictionary = {
 
 const COUNTISER := ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA"]
 const GRAVITY := 8.0
+const WALK_ANIM_THERSHOULD := 0.6
 
 enum ControlSchema{CPU, P1, P2}
 enum Role {GOALTE, DEFENSE, MIDFIELD, OFFENSE}
@@ -99,10 +100,14 @@ func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateDat
 
 
 func set_movement_animation() -> void:
-	if velocity.length() > 0:
-		animation_player.play("run")
+	var vel_length := velocity.length()
+	if vel_length < 1:
+		animation_player.play("idle") # almost stop
+	elif vel_length < speed * WALK_ANIM_THERSHOULD:
+		animation_player.play("walk") # slow run
 	else:
-		animation_player.play("idle")
+		animation_player.play("run") # run
+
 
 func process_gravity(delta: float) -> void:
 	if height > 0:
