@@ -143,6 +143,10 @@ func on_animation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete()
 
+func is_facing_target_goal() -> bool:
+	var direction_to_target_goal := position.direction_to(target_goal.position)
+	return heading.dot(direction_to_target_goal) > 0
+
 func control_ball() -> void:
 	if ball.height > BALL_CONTROL_HEIGHT_MAX:
 		switch_state(Player.State.CHEST_CONTROL)

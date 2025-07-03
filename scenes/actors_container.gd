@@ -1,6 +1,7 @@
 class_name ActorsContainer
 extends Node2D
 
+const DURATION_WEIGHT_CACHE := 200
 const PLAYER_PREFAB := preload("res://scenes/characters/player.tscn")
 
 @export var ball : Ball
@@ -12,8 +13,10 @@ const PLAYER_PREFAB := preload("res://scenes/characters/player.tscn")
 
 @onready var spawns : Node2D = %Spawns
 
+
 var squad_home : Array[Player] = []
 var squad_away : Array[Player] = []
+var time_since_last_cache_refresh = Time.get_ticks_msec()
 
 
 func _ready() -> void:
@@ -24,6 +27,12 @@ func _ready() -> void:
 	var this_player : Player = get_children().filter(func(p): return p is Player)[4]
 	this_player.control_schema = Player.ControlSchema.P1
 	this_player.set_control_texture()
+
+
+func _process(_delta: float) -> void:
+	if Time.get_ticks_msec() - time_since_last_cache_refresh > DURATION_WEIGHT_CACHE:
+		time_since_last_cache_refresh = Time.get_ticks_msec()
+		set_on_duty_weights()
 
 
 func spawn_players(country: String, own_goal: Goal) -> Array[Player]:
@@ -51,7 +60,6 @@ func set_on_duty_weights() -> void:
 			func(p: Player): return p.control_schema == Player.ControlSchema.CPU and p.role != Player.Role.GOALTE
 			)
 		cpu_players.sort_custom(func(p1: Player, p2: Player):
-			return p1.spawn_position.distance_squared_to(ball.position) < p2.spawn_position.distance_squared_to(ball.position)
-)
+			return p1.spawn_position.distance_squared_to(ball.position) < p2.spawn_position.distance_squared_to(ball.position))
 		for i in range(cpu_players.size()):
 			cpu_players[i].weight_on_duty_steering = 1 - ease(float(i)/10.0, 0.1)
