@@ -29,7 +29,8 @@ enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER,
 @onready var control_sprite : Sprite2D = %ControlSprite
 @onready var player_sprite : Sprite2D = $PlayerSprite
 @onready var tackle_damege_emitter_area : Area2D = %TackelDamageEmitterArea
-@onready var teammate_detection_area : Area2D = %TeammateDetectionArea2D
+@onready var teammate_detection_area : Area2D = %TeammateDetectionArea
+@onready var opponent_detection_area : Area2D = %OpponentDetectionArea
 
 var ai_behavior : AIBehavior = AIBehavior.new()
 var country : String = ""
@@ -96,7 +97,8 @@ func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateDat
 	current_state = state_factory.get_fresh_state(set_state)
 	current_state.setup(self, state_data, animation_player, ball,
 		teammate_detection_area, ball_detection_area, own_goal,
-		target_goal, ai_behavior, tackle_damege_emitter_area)
+		target_goal, ai_behavior, tackle_damege_emitter_area,
+		opponent_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(set_state)
 	call_deferred("add_child", current_state)
@@ -131,9 +133,11 @@ func flip_sprites() -> void:
 	if heading == Vector2.RIGHT:
 		player_sprite.flip_h = false
 		tackle_damege_emitter_area.scale.x = 1
+		opponent_detection_area.scale.x = 1
 	elif heading == Vector2.LEFT:
 		player_sprite.flip_h = true
 		tackle_damege_emitter_area.scale.x = -1
+		opponent_detection_area.scale.x = -1
 
 func get_hurt(hurt_origin: Vector2) -> void:
 	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_dirction(hurt_origin))

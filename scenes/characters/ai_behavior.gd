@@ -7,17 +7,21 @@ const SHOOT_PROBABILITY := 0.3
 const SPRED_ASSIST_FACTOR := 0.8
 const TACKLE_DISTANCE := 15
 const TACKLE_PROBABLITY := 0.3
+const PASS_PROBABILITY := 0.5
 
 var ball : Ball = null
 var player : Player = null
 var time_since_last_ai_tick := Time.get_ticks_msec()
 
+
 func _ready() -> void:
 	time_since_last_ai_tick = Time.get_ticks_msec() + randi_range(0, AI_TICK_FREQUENCY)
+
 
 func setup(c_player: Player, c_ball: Ball) -> void:
 	ball = c_ball
 	player = c_player
+
 
 func process_ai() -> void:
 	if Time.get_ticks_msec() - time_since_last_ai_tick > AI_TICK_FREQUENCY:
@@ -50,10 +54,11 @@ func perform_ai_decisions():
 			var shot_direction := player.position.direction_to(player.target_goal.get_random_target_position())
 			var data := PlayerStateData.build().set_shot_power(player.power).set_shot_direction(shot_direction)
 			player.switch_state(Player.State.SHOOTING, data)
+		elif has_opponents_nearby() and randf() < PASS_PROBABILITY:
+			player.switch_state(Player.State.PASSING)
 
 
 func get_onduty_streering_force() -> Vector2:
-	#print('force: ', player.weight_on_duty_steering, ' ', player.position.direction_to(ball.position), ' ', ball.position)
 	return player.weight_on_duty_steering * player.position.direction_to(ball.position)
 
 
@@ -95,3 +100,8 @@ func is_ball_possessed_by_opponent() -> bool:
 
 func is_ball_carried_by_teammate() -> bool:
 	return ball.carrier != null and ball.carrier != player and ball.carrier.country == player.country
+
+
+func has_opponents_nearby() -> bool:
+	var players = player.opponent_detection_area.get_overlapping_bodies()
+	return players.find_custom(func(p: Player): return p.country != player.country) > -1

@@ -3,13 +3,11 @@ extends PlayerState
 
 func _enter_tree() -> void:
 	animation_player.play("kick")
-
 	player.velocity = Vector2.ZERO
 
 
 func on_animation_complete() -> void:
 	var pass_target := find_teammate_in_view()
-	print('pass target is: ', pass_target)
 	if pass_target == null:
 		ball.pass_to(ball.position + player.heading * player.speed)
 	else:
