@@ -5,6 +5,8 @@ const AI_TICK_FREQUENCY := 200
 const SHOOT_DISTANCE := 150
 const SHOOT_PROBABILITY := 0.3
 const SPRED_ASSIST_FACTOR := 0.8
+const TACKLE_DISTANCE := 15
+const TACKLE_PROBABLITY := 0.3
 
 var ball : Ball = null
 var player : Player = null
@@ -37,6 +39,10 @@ func perform_ai_movement():
 
 
 func perform_ai_decisions():
+	if (is_ball_possessed_by_opponent() and player.position.distance_to(ball.position) < TACKLE_DISTANCE and 
+			randi_range(0, 1) > TACKLE_PROBABLITY):
+		player.switch_state(Player.State.TACKLING)
+
 	if ball.carrier == player:
 		var target := player.target_goal.get_center_target_position()
 		if player.position.distance_to(target) < SHOOT_DISTANCE and randf() < SHOOT_PROBABILITY:
@@ -81,7 +87,11 @@ func get_bicircular_weight(position: Vector2, center_target: Vector2, inner_circ
 func face_towards_target_all() -> void:
 	if not player.is_facing_target_goal():
 		player.heading = player.heading * -1
-	pass
+
+
+func is_ball_possessed_by_opponent() -> bool:
+	return ball.carrier != null and ball.carrier.country != player.country
+
 
 func is_ball_carried_by_teammate() -> bool:
 	return ball.carrier != null and ball.carrier != player and ball.carrier.country == player.country

@@ -35,5 +35,3 @@ func handle_human_movement() -> void:
 
 	#if player.velocity != Vector2.ZERO and KeyUtils.is_action_just_pressed(player.control_schema, KeyUtils.Action.SHOOT):
 	#   transition_state(Player.State.TACKLING)
-
-
