@@ -159,9 +159,10 @@ func is_facing_target_goal() -> bool:
 	var direction_to_target_goal := position.direction_to(target_goal.position)
 	return heading.dot(direction_to_target_goal) > 0
 
-func on_tackle_player(player: Player) -> void:
-	if player != self and player.country != country and player == ball.carrier:
-		player.get_hurt(position.direction_to(player.position))
+func on_tackle_player(player) -> void:
+	if player is Player:
+		if player != self and player.country != country and player == ball.carrier:
+			player.get_hurt(position.direction_to(player.position))
 	
 
 func control_ball() -> void:
