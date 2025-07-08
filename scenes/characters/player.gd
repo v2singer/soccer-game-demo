@@ -15,7 +15,7 @@ const WALK_ANIM_THERSHOULD := 0.6
 enum ControlSchema{CPU, P1, P2}
 enum Role {GOALTE, DEFENSE, MIDFIELD, OFFENSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT}
+enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
 
 @export var ball : Ball
 @export var control_schema : ControlSchema
@@ -28,13 +28,16 @@ enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER,
 @onready var ball_detection_area : Area2D = %BallDetectionArea
 @onready var control_sprite : Sprite2D = %ControlSprite
 @onready var player_sprite : Sprite2D = $PlayerSprite
+@onready var goalie_hands_collider : CollisionShape2D = %GoalieHandsCollider
+@onready var permanent_damage_emitter_area : Area2D = %PermanentDamageEmitterArea
 @onready var tackle_damege_emitter_area : Area2D = %TackelDamageEmitterArea
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea
 @onready var opponent_detection_area : Area2D = %OpponentDetectionArea
 
-var ai_behavior : AIBehavior = AIBehavior.new()
+var ai_behavior_factory : AIBehaviorFactory = AIBehaviorFactory.new()
 var country : String = ""
 var current_state : PlayerState = null
+var current_ai_behavior : AIBehavior = null
 var fullname := ""
 var heading := Vector2.RIGHT
 var height := 0.0
@@ -49,10 +52,13 @@ var weight_on_duty_steering := 0.0
 
 func _ready() -> void:
 	set_control_texture()
-	switch_state(State.MOVING)
-	set_shader_properties()
 	setup_ai_behavior()
+	switch_state(State.MOVING)
+	permanent_damage_emitter_area.monitoring = role == Role.GOALTE
+	goalie_hands_collider.disabled = role != Role.GOALTE
+	set_shader_properties()
 	tackle_damege_emitter_area.body_entered.connect(on_tackle_player.bind())
+	permanent_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	spawn_position = position
 
 
@@ -85,9 +91,10 @@ func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_go
 
 
 func setup_ai_behavior() -> void:
-	ai_behavior.setup(self, ball)
-	ai_behavior.name = "AI Behavior"
-	add_child(ai_behavior)
+	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
+	current_ai_behavior.setup(self, ball)
+	current_ai_behavior.name = "AI Behavior"
+	add_child(current_ai_behavior)
 
 
 func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateData.new()) -> void:
@@ -97,7 +104,7 @@ func switch_state(set_state: State, state_data: PlayerStateData = PlayerStateDat
 	current_state = state_factory.get_fresh_state(set_state)
 	current_state.setup(self, state_data, animation_player, ball,
 		teammate_detection_area, ball_detection_area, own_goal,
-		target_goal, ai_behavior, tackle_damege_emitter_area,
+		target_goal, current_ai_behavior, tackle_damege_emitter_area,
 		opponent_detection_area)
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "PlayerStateMachine: " + str(set_state)
@@ -168,3 +175,6 @@ func on_tackle_player(player) -> void:
 func control_ball() -> void:
 	if ball.height > BALL_CONTROL_HEIGHT_MAX:
 		switch_state(Player.State.CHEST_CONTROL)
+
+func can_carry_ball() -> bool:
+	return current_state != null and current_state.can_carry_ball()

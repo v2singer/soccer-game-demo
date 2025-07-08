@@ -41,3 +41,6 @@ func transition_state(new_state: Player.State,
 
 func on_animation_complete() -> void:
 	pass # override me!
+
+func can_carry_ball() -> bool:
+	return false
