@@ -5,6 +5,8 @@ const AI_TICK_FREQUENCY := 200
 
 var ball : Ball = null
 var player : Player = null
+var teammate_detection_area : Area2D = null
+var opponent_detection_area_not_used : Area2D = null # TODO: xxx
 var time_since_last_ai_tick := Time.get_ticks_msec()
 
 
@@ -12,9 +14,10 @@ func _ready() -> void:
 	time_since_last_ai_tick = Time.get_ticks_msec() + randi_range(0, AI_TICK_FREQUENCY)
 
 
-func setup(c_player: Player, c_ball: Ball) -> void:
+func setup(c_player: Player, c_ball: Ball, c_teammate_detection_area: Area2D) -> void:
 	ball = c_ball
 	player = c_player
+	teammate_detection_area = c_teammate_detection_area
 
 
 func process_ai() -> void:

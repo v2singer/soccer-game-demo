@@ -92,7 +92,7 @@ func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_go
 
 func setup_ai_behavior() -> void:
 	current_ai_behavior = ai_behavior_factory.get_ai_behavior(role)
-	current_ai_behavior.setup(self, ball)
+	current_ai_behavior.setup(self, ball, teammate_detection_area)
 	current_ai_behavior.name = "AI Behavior"
 	add_child(current_ai_behavior)
 
@@ -161,6 +161,10 @@ func set_sprite_visibility() -> void:
 func on_animation_complete() -> void:
 	if current_state != null:
 		current_state.on_animation_complete()
+
+func get_pass_request(player: Player) -> void:
+	if ball.carrier == self and current_state != null and current_state.can_pass():
+		switch_state(Player.State.PASSING, PlayerStateData.build().set_pass_target(player))
 
 func is_facing_target_goal() -> bool:
 	var direction_to_target_goal := position.direction_to(target_goal.position)
