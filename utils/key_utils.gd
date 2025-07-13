@@ -4,8 +4,6 @@ extends Node
 enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASST}
 
 const ACTIONS_MAP : Dictionary = {
-	Player.ControlSchema.CPU: {
-	},
 	Player.ControlSchema.P1: {
 		Action.LEFT: "p1_left",
 		Action.RIGHT: "p1_right",

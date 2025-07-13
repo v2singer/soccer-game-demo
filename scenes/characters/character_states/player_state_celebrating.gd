@@ -1,4 +1,4 @@
-class_name PlayerStateCelebratring
+class_name PlayerStateCelebrating
 extends PlayerState
 
 
