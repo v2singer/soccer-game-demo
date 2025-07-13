@@ -17,7 +17,7 @@ const WALK_ANIM_THERSHOULD := 0.6
 enum ControlSchema{CPU, P1, P2}
 enum Role {GOALTE, DEFENSE, MIDFIELD, OFFENSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING}
+enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
 
 @export var ball : Ball
 @export var control_schema : ControlSchema
@@ -62,7 +62,7 @@ func _ready() -> void:
 	tackle_damege_emitter_area.body_entered.connect(on_tackle_player.bind())
 	permanent_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	spawn_position = position
-
+	GameEvents.team_scored.connect(on_team_scored.bind())
 
 func _process(delta: float) -> void:
 	flip_sprites()
@@ -160,10 +160,6 @@ func set_control_texture() -> void:
 func set_sprite_visibility() -> void:
 	control_sprite.visible = has_ball() or not control_schema == ControlSchema.CPU
 
-func on_animation_complete() -> void:
-	if current_state != null:
-		current_state.on_animation_complete()
-
 func get_pass_request(player: Player) -> void:
 	if ball.carrier == self and current_state != null and current_state.can_pass():
 		switch_state(Player.State.PASSING, PlayerStateData.build().set_pass_target(player))
@@ -172,11 +168,20 @@ func is_facing_target_goal() -> bool:
 	var direction_to_target_goal := position.direction_to(target_goal.position)
 	return heading.dot(direction_to_target_goal) > 0
 
+func on_animation_complete() -> void:
+	if current_state != null:
+		current_state.on_animation_complete()
+
 func on_tackle_player(player) -> void:
 	if player is Player:
 		if player != self and player.country != country and player == ball.carrier:
 			player.get_hurt(position.direction_to(player.position))
-	
+
+func on_team_scored(team_scored_on: String) -> void:
+	if country == team_scored_on:
+		switch_state(Player.State.MOURNING)
+	else:
+		switch_state(Player.State.CELEBRATING)
 
 func control_ball() -> void:
 	if ball.height > BALL_CONTROL_HEIGHT_MAX:

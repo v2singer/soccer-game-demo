@@ -6,10 +6,19 @@ extends Node2D
 @onready var targets : Node2D = %Targets
 @onready var scoring_area : Area2D = %ScoringArea
 
+var country := ""
 
 func _ready() -> void:
 	back_net_area.body_entered.connect(on_ball_enter_back_net.bind())
+	scoring_area.body_entered.connect(on_ball_enter_score_area.bind())
 
+func initialize(context_country: String) -> void:
+	country = context_country
+
+
+func on_ball_enter_score_area(_ball: Ball) -> void:
+	#GameEvents.team_scored.emit()
+	pass
 
 func on_ball_enter_back_net(ball: Ball) -> void:
 	ball.stop()

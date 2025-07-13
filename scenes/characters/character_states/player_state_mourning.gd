@@ -1,0 +1,2 @@
+class_name PlayerStateMourning
+extends PlayerState
