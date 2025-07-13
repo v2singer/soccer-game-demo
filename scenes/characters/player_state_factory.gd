@@ -19,6 +19,7 @@ func _init() -> void:
 		Player.State.BICYCLE_KICK: PlayerStateBicycleKick,
 		Player.State.CELEBRATING: PlayerStateCelebrating,
 		Player.State.MOURNING: PlayerStateMourning,
+		Player.State.RESETING: PlayerStateReseting,
 	}
 
 func get_fresh_state(state: Player.State) -> PlayerState:

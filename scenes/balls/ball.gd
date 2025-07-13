@@ -3,6 +3,7 @@ extends AnimatableBody2D
 
 const BOUNCINESS := 0.8
 const DISTANCE_HIGH_PASS := 130.0
+const KICKOFF_PASS_DISTANCE := 35.0
 const TUMBLE_HEIGHT_VELOCITY := 3.0
 const DURATION_TUMBLE_LOCK := 200
 const DURATION_PASS_LOCK := 500
@@ -21,11 +22,15 @@ var carrier : Player = null
 var current_state : BallState = null
 var height : float = 0.0
 var height_velocity : float = 0.0
+var spawn_position := Vector2.ZERO
 var state_factory := BallStateFactory.new()
 var velocity : Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	switch_state(State.FREEFORM)
+	spawn_position = position
+	GameEvents.team_reset.connect(on_team_reset.bind())
+	GameEvents.kickoff_started.connect(on_kickoff_started.bind())
 
 func _process(_delta: float) -> void:
 	ball_sprite.position = Vector2.UP * height
@@ -52,7 +57,7 @@ func tumble(tumble_velocity: Vector2) -> void:
 	height_velocity = TUMBLE_HEIGHT_VELOCITY
 	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(DURATION_TUMBLE_LOCK))
 
-func pass_to(destination: Vector2) -> void:
+func pass_to(destination: Vector2, lock_duration: int = DURATION_PASS_LOCK) -> void:
 	var direction := position.direction_to(destination)
 	var distance := position.distance_to(destination)
 	var intensity := sqrt(2 * distance * frction_ground)
@@ -60,7 +65,7 @@ func pass_to(destination: Vector2) -> void:
 	if distance > DISTANCE_HIGH_PASS:
 		height_velocity = BallState.GRAVITY * distance / (2 * intensity) * 1.1
 	carrier = null
-	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(DURATION_PASS_LOCK))
+	switch_state(Ball.State.FREEFORM, BallStateData.build().set_lock_duration(lock_duration))
 
 func stop() -> void:
 	velocity = Vector2.ZERO
@@ -76,3 +81,12 @@ func is_headed_for_scoring_area(scoring_area: Area2D) -> bool:
 	if not scoring_raycast.is_colliding():
 		return false
 	return scoring_raycast.get_collider() == scoring_area
+
+func on_team_reset() -> void:
+	position = spawn_position
+	velocity = Vector2.ZERO
+	switch_state(State.FREEFORM)
+
+
+func on_kickoff_started() -> void:
+	pass_to(spawn_position + Vector2.DOWN * KICKOFF_PASS_DISTANCE, 0)

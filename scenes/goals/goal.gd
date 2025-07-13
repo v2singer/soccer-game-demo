@@ -11,16 +11,19 @@ var country := ""
 func _ready() -> void:
 	back_net_area.body_entered.connect(on_ball_enter_back_net.bind())
 	scoring_area.body_entered.connect(on_ball_enter_score_area.bind())
+	print('connect score area.')
 
 func initialize(context_country: String) -> void:
 	country = context_country
+	print('set country: ', country)
 
 
 func on_ball_enter_score_area(_ball: Ball) -> void:
-	#GameEvents.team_scored.emit()
-	pass
+	print('team scored: ', country, ' done')
+	GameEvents.team_scored.emit(country)
 
 func on_ball_enter_back_net(ball: Ball) -> void:
+	print('enter back net, will stop')
 	ball.stop()
 
 func get_random_target_position() -> Vector2:

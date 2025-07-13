@@ -17,7 +17,7 @@ const WALK_ANIM_THERSHOULD := 0.6
 enum ControlSchema{CPU, P1, P2}
 enum Role {GOALTE, DEFENSE, MIDFIELD, OFFENSE}
 enum SkinColor {LIGHT, MEDIUM, DARK}
-enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING}
+enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER, VOLLEY_KICK, BICYCLE_KICK, CHEST_CONTROL, HURT, DIVING, CELEBRATING, MOURNING, RESETING}
 
 @export var ball : Ball
 @export var control_schema : ControlSchema
@@ -41,6 +41,7 @@ var country : String = ""
 var current_state : PlayerState = null
 var current_ai_behavior : AIBehavior = null
 var fullname := ""
+var kickoff_position : Vector2 = Vector2.ZERO
 var heading := Vector2.RIGHT
 var height := 0.0
 var height_velocity := 0.0
@@ -63,6 +64,9 @@ func _ready() -> void:
 	permanent_damage_emitter_area.body_entered.connect(on_tackle_player.bind())
 	spawn_position = position
 	GameEvents.team_scored.connect(on_team_scored.bind())
+	var initialize_position := kickoff_position if country == GameManager.countries[0] else spawn_position
+	switch_state(State.RESETING, PlayerStateData.build().set_reset_position(initialize_position))
+
 
 func _process(delta: float) -> void:
 	flip_sprites()
@@ -78,7 +82,7 @@ func set_shader_properties() -> void:
 	player_sprite.material.set_shader_parameter("team_color", country_color)
 
 
-func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResource, c_country: String) -> void:
+func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_goal: Goal, c_player_data: PlayerResource, c_country: String, c_kick_off_position: Vector2) -> void:
 	position = c_position
 	ball = c_ball
 	own_goal = c_own_goal
@@ -90,6 +94,7 @@ func initialize(c_position: Vector2, c_ball: Ball, c_own_goal: Goal, c_target_go
 	power = c_player_data.power
 	heading = Vector2.LEFT if target_goal.position.x < position.x else Vector2.RIGHT
 	country = c_country
+	kickoff_position = c_kick_off_position
 
 
 func setup_ai_behavior() -> void:
@@ -154,11 +159,19 @@ func get_hurt(hurt_origin: Vector2) -> void:
 func has_ball() -> bool:
 	return ball.carrier == self
 
+
+func is_ready_for_kickoff() -> bool:
+	return current_state != null and current_state.is_ready_for_kickoff()
+
 func set_control_texture() -> void:
 	control_sprite.texture = CONTROL_SPRITE_MAP[control_schema]
 
 func set_sprite_visibility() -> void:
 	control_sprite.visible = has_ball() or not control_schema == ControlSchema.CPU
+
+func set_control_scheme(scheme: ControlSchema) -> void:
+	control_schema = scheme
+	set_control_texture()
 
 func get_pass_request(player: Player) -> void:
 	if ball.carrier == self and current_state != null and current_state.can_pass():
@@ -189,3 +202,7 @@ func control_ball() -> void:
 
 func can_carry_ball() -> bool:
 	return current_state != null and current_state.can_carry_ball()
+
+func face_towards_target_all() -> void:
+	if not is_facing_target_goal():
+		heading = heading * -1
