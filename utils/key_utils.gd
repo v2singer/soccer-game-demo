@@ -1,4 +1,4 @@
-extends Node
+class_name KeyUtils
 
 
 enum Action {LEFT, RIGHT, UP, DOWN, SHOOT, PASST}
@@ -22,15 +22,15 @@ const ACTIONS_MAP : Dictionary = {
 	}
 }
 
-func get_input_vector(schema: Player.ControlSchema) -> Vector2 :
+static func get_input_vector(schema: Player.ControlSchema) -> Vector2 :
 	var map : Dictionary = ACTIONS_MAP[schema]
 	return Input.get_vector(map[Action.LEFT], map[Action.RIGHT], map[Action.UP], map[Action.DOWN])
 
-func is_action_pressed(schema: Player.ControlSchema, action: Action) -> bool:
+static func is_action_pressed(schema: Player.ControlSchema, action: Action) -> bool:
 	return Input.is_action_pressed(ACTIONS_MAP[schema][action])
 
-func is_action_just_pressed(schema: Player.ControlSchema, action: Action) -> bool:
+static func is_action_just_pressed(schema: Player.ControlSchema, action: Action) -> bool:
 	return Input.is_action_just_pressed(ACTIONS_MAP[schema][action])
 
-func is_action_just_released(schema: Player.ControlSchema, action: Action) -> bool:
+static func is_action_just_released(schema: Player.ControlSchema, action: Action) -> bool:
 	return Input.is_action_just_released(ACTIONS_MAP[schema][action])

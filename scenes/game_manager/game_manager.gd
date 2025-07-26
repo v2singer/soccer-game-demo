@@ -9,7 +9,7 @@ var countries : Array[String] = ["FRANCE", "USA"]
 var current_state : GameState = null
 var player_setup : Array[String] = ["FRANCE", ""]
 var state_factory := GameStateFactory.new()
-var score := [0, 0]
+var score : Array[int] = [0, 0]
 var time_left : float
 
 

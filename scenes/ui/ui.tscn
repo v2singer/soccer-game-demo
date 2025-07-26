@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsw188fa55n6x"]
+[gd_scene load_steps=3 format=3 uid="uid://dsw188fa55n6x"]
 
+[ext_resource type="Script" uid="uid://gc4a44m8vl2c" path="res://scenes/ui/ui.gd" id="1_f5cxw"]
 [ext_resource type="Texture2D" uid="uid://mkdxwy2ne2o3" path="res://assets/art/ui/flags/flag-placeholder.png" id="1_nb4k0"]
 
 [node name="UI" type="CanvasLayer"]
+script = ExtResource("1_f5cxw")
 
 [node name="UIContainer" type="Control" parent="."]
 layout_mode = 3
