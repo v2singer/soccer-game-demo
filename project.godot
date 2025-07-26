@@ -40,6 +40,11 @@ window/stretch/scale_mode="integer"
 
 enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
 
+[gui]
+
+theme/custom="uid://ccjulm3qdetn"
+theme/custom_font="uid://b1nkkf0764cyt"
+
 [input]
 
 p1_left={

@@ -105,7 +105,7 @@ func setup_control_schemes() -> void:
 		player_squad[4].set_control_scheme(Player.ControlSchema.P1)
 		player_squad[5].set_control_scheme(Player.ControlSchema.P2)
 	elif GameManager.is_single_player():
-		var player_squad := squad_home if squad_home[0].coutnry == p1_country else squad_away
+		var player_squad := squad_home if squad_home[0].country == p1_country else squad_away
 		player_squad[5].set_control_scheme(Player.ControlSchema.P1)
 	else: # versus
 		var p1_squad := squad_home if squad_home[0].coutnry == p1_country else squad_away

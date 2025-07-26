@@ -34,4 +34,3 @@ func is_coop() -> bool:
 
 func is_single_player() -> bool:
 	return player_setup[1].is_empty()
-

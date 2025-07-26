@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://fd2ar53v4j4p"]
+[gd_scene load_steps=13 format=3 uid="uid://fd2ar53v4j4p"]
 
 [ext_resource type="Texture2D" uid="uid://itwqs3sgwebj" path="res://assets/art/backgrounds/pitch-background.png" id="1_nnsk1"]
 [ext_resource type="Script" uid="uid://ccjxk6bt1hprp" path="res://scenes/camera.gd" id="1_qfnet"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://cml8qs7gft0j8" path="res://assets/art/backgrounds/top-wall.png" id="6_4mrxx"]
 [ext_resource type="Texture2D" uid="uid://16i4fukhr50h" path="res://assets/art/backgrounds/bottom-wall.png" id="7_7r4gi"]
 [ext_resource type="Texture2D" uid="uid://bcl3qhsobp1i" path="res://assets/art/backgrounds/side-wall.png" id="8_w7kh3"]
+[ext_resource type="PackedScene" uid="uid://dsw188fa55n6x" path="res://scenes/ui/ui.tscn" id="11_e3hyu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7r4gi"]
 size = Vector2(802, 7)
@@ -141,3 +142,5 @@ position = Vector2(425, 180)
 collision_layer = 2
 collision_mask = 3
 sync_to_physics = false
+
+[node name="UI" parent="." instance=ExtResource("11_e3hyu")]

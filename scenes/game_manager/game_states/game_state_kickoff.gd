@@ -19,5 +19,3 @@ func _process(_delta: float) -> void:
 		if KeyUtils.is_action_just_pressed(control_scheme, KeyUtils.Action.PASST):
 			GameEvents.kickoff_started.emit()
 			transition_state(GameManager.State.IN_PLAY)
-
-
