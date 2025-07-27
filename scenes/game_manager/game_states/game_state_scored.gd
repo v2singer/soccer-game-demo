@@ -9,6 +9,7 @@ var time_since_celebration := Time.get_ticks_msec()
 func _exit_tree() -> void:
 	var index_country_scoring := 1 if state_data.country_scored_on == manager.countries[0] else 0
 	manager.score[index_country_scoring] += 1
+	GameEvents.score_changed.emit()
 	time_since_celebration = Time.get_ticks_msec()
 	print(index_country_scoring, "scored")
 
