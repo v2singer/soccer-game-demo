@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 		time_since_last_cache_refresh = Time.get_ticks_msec()
 		set_on_duty_weights()
 	if is_checking_for_kickoff_readiness:
-		checking_for_kickoff_readiness()
+		check_for_kickoff_readiness()
 
 
 func spawn_players(country: String, own_goal: Goal) -> Array[Player]:
@@ -70,7 +70,7 @@ func set_on_duty_weights() -> void:
 		for i in range(cpu_players.size()):
 			cpu_players[i].weight_on_duty_steering = 1 - ease(float(i)/10.0, 0.1)
 
-func checking_for_kickoff_readiness() -> void:
+func check_for_kickoff_readiness() -> void:
 	for squad in [squad_home, squad_away]:
 		for player : Player in squad:
 			if not player.is_ready_for_kickoff():
@@ -99,6 +99,7 @@ func on_player_swap_request(requester: Player) -> void:
 		print('no closest player')
 
 func setup_control_schemes() -> void:
+	reset_control_schemes()
 	var p1_country := GameManager.player_setup[0]
 	if GameManager.is_coop():
 		var player_squad := squad_home if squad_home[0].coutnry == p1_country else squad_away
@@ -116,3 +117,8 @@ func setup_control_schemes() -> void:
 
 func on_team_reset() -> void:
 	is_checking_for_kickoff_readiness = true
+
+func reset_control_schemes() -> void:
+	for squad in [squad_home, squad_away]:
+		for player: Player in squad:
+			player.set_control_scheme(Player.ControlSchema.CPU)

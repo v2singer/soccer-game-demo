@@ -3,4 +3,5 @@ extends GameState
 
 
 func _exit_tree() -> void:
-	print('Game Over')
+	var country_winner := manager.get_winner_country()
+	GameEvents.game_over.emit(country_winner)
