@@ -173,6 +173,7 @@ func set_control_texture() -> void:
 
 func set_sprite_visibility() -> void:
 	control_sprite.visible = has_ball() or not control_schema == ControlSchema.CPU
+	run_particles.emitting = velocity.length() == speed
 
 func set_control_scheme(scheme: ControlSchema) -> void:
 	control_schema = scheme
