@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bnhqehiihiqdn"]
+[gd_scene load_steps=15 format=3 uid="uid://bnhqehiihiqdn"]
 
 [ext_resource type="Script" uid="uid://bch1a5jqtkn85" path="res://scenes/balls/ball.gd" id="1_svc1m"]
 [ext_resource type="Texture2D" uid="uid://bf3um3wlow65s" path="res://assets/art/props/soccer-ball.png" id="2_p8kwt"]
@@ -86,6 +86,9 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_3751q"]
 radius = 3.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_p8kwt"]
+radius = 60.0
+
 [node name="Ball" type="AnimatableBody2D"]
 collision_layer = 4
 collision_mask = 33
@@ -138,3 +141,13 @@ target_position = Vector2(80, 0)
 collision_mask = 16
 collide_with_areas = true
 collide_with_bodies = false
+
+[node name="PlayerProximityArea" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(0, -5)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerProximityArea"]
+shape = SubResource("CircleShape2D_p8kwt")
