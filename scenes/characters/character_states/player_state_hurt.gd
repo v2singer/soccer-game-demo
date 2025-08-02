@@ -17,6 +17,7 @@ func _enter_tree() -> void:
 	player.height = HURT_JUMP_HEIGH
 	if ball.carrier == player:
 		ball.tumble(state_data.hurt_direction * BALL_TUMBLE_SPEED)
+		GameEvents.impact_received.emit(player.position, false)
 
 func _process(delta: float) -> void:
 	if Time.get_ticks_msec() - time_start_hurt > DURATION_HURT:
