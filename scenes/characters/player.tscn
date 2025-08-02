@@ -1,12 +1,29 @@
-[gd_scene load_steps=33 format=3 uid="uid://xl0q428f40yn"]
+[gd_scene load_steps=37 format=3 uid="uid://xl0q428f40yn"]
 
 [ext_resource type="Texture2D" uid="uid://crb5iqvxkq0nu" path="res://assets/art/characters/soccer-player.png" id="1_rp718"]
 [ext_resource type="Script" uid="uid://ck0uw5cdi3u2n" path="res://scenes/characters/player.gd" id="1_yewv4"]
+[ext_resource type="Texture2D" uid="uid://bgeepkjkg2755" path="res://assets/art/particles/white-circle.png" id="2_eojnx"]
 [ext_resource type="Shader" uid="uid://skb2as4csoq2" path="res://shaders/replace_color.gdshader" id="2_kqtwu"]
 [ext_resource type="Texture2D" uid="uid://bj1m521brdmip" path="res://assets/art/palettes/teams-color-palette.png" id="3_6eyoc"]
 [ext_resource type="Texture2D" uid="uid://cd38qv56w6bwn" path="res://assets/art/characters/player-shadow.png" id="3_76oj4"]
 [ext_resource type="Texture2D" uid="uid://hvikektinp62" path="res://assets/art/props/1p.png" id="3_dyp2m"]
 [ext_resource type="Texture2D" uid="uid://bjfov8skx2h85" path="res://assets/art/palettes/skin-colors-palette.png" id="3_eojnx"]
+
+[sub_resource type="Curve" id="Curve_qgnko"]
+_data = [Vector2(0, 0.239703), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_7vyk4"]
+curve = SubResource("Curve_qgnko")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_2l4js"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, -80, 0)
+scale_min = 0.3
+scale_max = 0.8
+scale_curve = SubResource("CurveTexture_7vyk4")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_eojnx"]
 resource_local_to_scene = true
@@ -386,6 +403,16 @@ script = ExtResource("1_yewv4")
 power = 150.0
 speed = 80.0
 
+[node name="RootParticles" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="RunParticles" type="GPUParticles2D" parent="RootParticles"]
+unique_name_in_owner = true
+position = Vector2(-5, 0)
+texture = ExtResource("2_eojnx")
+lifetime = 0.4
+process_material = SubResource("ParticleProcessMaterial_2l4js")
+
 [node name="PlayerSprite" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_eojnx")
 texture = ExtResource("1_rp718")
@@ -431,7 +458,6 @@ offset = Vector2(-8, -15)
 
 [node name="BallDetectionArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 collision_layer = 0
 collision_mask = 4
 monitorable = false
@@ -443,7 +469,6 @@ shape = SubResource("CapsuleShape2D_dyp2m")
 
 [node name="TackelDamageEmitterArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 collision_layer = 0
 collision_mask = 2
 monitoring = false
@@ -467,7 +492,6 @@ shape = SubResource("CapsuleShape2D_6eyoc")
 
 [node name="PermanentDamageEmitterArea" type="Area2D" parent="."]
 unique_name_in_owner = true
-visible = false
 collision_layer = 0
 collision_mask = 2
 monitoring = false

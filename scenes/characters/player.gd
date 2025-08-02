@@ -35,6 +35,8 @@ enum State {MOVING, TACKLING, RECOVERING, PREP_SHOOT, SHOOTING, PASSING, HEADER,
 @onready var tackle_damege_emitter_area : Area2D = %TackelDamageEmitterArea
 @onready var teammate_detection_area : Area2D = %TeammateDetectionArea
 @onready var opponent_detection_area : Area2D = %OpponentDetectionArea
+@onready var root_particles : Node2D = %RootParticles
+@onready var run_particles : GPUParticles2D = %RunParticles
 
 var ai_behavior_factory : AIBehaviorFactory = AIBehaviorFactory.new()
 var country : String = ""
@@ -149,10 +151,12 @@ func flip_sprites() -> void:
 		player_sprite.flip_h = false
 		tackle_damege_emitter_area.scale.x = 1
 		opponent_detection_area.scale.x = 1
+		root_particles.scale.x = 1
 	elif heading == Vector2.LEFT:
 		player_sprite.flip_h = true
 		tackle_damege_emitter_area.scale.x = -1
 		opponent_detection_area.scale.x = -1
+		root_particles.scale.x = -1
 
 func get_hurt(hurt_origin: Vector2) -> void:
 	switch_state(Player.State.HURT, PlayerStateData.build().set_hurt_dirction(hurt_origin))

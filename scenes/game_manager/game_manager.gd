@@ -74,4 +74,3 @@ func on_impact_received(_impact_position: Vector2, is_high_impact: bool) -> void
 	if is_high_impact:
 		time_since_paused = Time.get_ticks_msec()
 		get_tree().paused = true
-
