@@ -10,7 +10,6 @@ const CONTROL_SPRITE_MAP : Dictionary = {
 	ControlSchema.P2 : preload("res://assets/art/props/2p.png")
 }
 
-const COUNTISER := ["DEFAULT", "FRANCE", "ARGENTINA", "BRAZIL", "ENGLAND", "GERMANY", "ITALY", "SPAIN", "USA"]
 const GRAVITY := 8.0
 const WALK_ANIM_THERSHOULD := 0.6
 
@@ -80,8 +79,9 @@ func _process(delta: float) -> void:
 
 func set_shader_properties() -> void:
 	player_sprite.material.set_shader_parameter("skin_color", skin_color)
-	var country_color := COUNTISER.find(country)
-	country_color = clampi(country_color, 0, COUNTISER.size() - 1)
+	var countries := DataLoader.get_countries()
+	var country_color := countries.find(country)
+	country_color = clampi(country_color, 0, countries.size() - 1)
 	player_sprite.material.set_shader_parameter("team_color", country_color)
 
 
