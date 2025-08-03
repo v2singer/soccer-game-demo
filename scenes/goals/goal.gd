@@ -20,6 +20,7 @@ func initialize(context_country: String) -> void:
 
 func on_ball_enter_score_area(_ball: Ball) -> void:
 	print('team scored: ', country, ' done')
+	SoundPlayer.paly(SoundPlayer.Sound.WHISTLE)
 	GameEvents.team_scored.emit(country)
 
 func on_ball_enter_back_net(ball: Ball) -> void:
