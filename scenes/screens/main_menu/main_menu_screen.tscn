@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://b8yu2adqm6lqo"]
 
-[ext_resource type="Script" path="res://scenes/screens/main_menu/main_menu_screen.gd" id="1_ai35v"]
+[ext_resource type="Script" uid="uid://cdv6iv3uv5ln3" path="res://scenes/screens/main_menu/main_menu_screen.gd" id="1_ai35v"]
 [ext_resource type="Texture2D" uid="uid://bi8y27dic5qv" path="res://assets/art/ui/mainmenu/menu-background.png" id="1_vkt5c"]
 [ext_resource type="Texture2D" uid="uid://cwrwx3oll2gfc" path="res://assets/art/ui/mainmenu/title.png" id="2_mf2mp"]
 [ext_resource type="Texture2D" uid="uid://bas438tqxk38w" path="res://assets/art/ui/mainmenu/menu-mask.png" id="3_lk734"]
@@ -9,6 +9,93 @@
 [ext_resource type="Texture2D" uid="uid://caursatwer4yy" path="res://assets/art/ui/mainmenu/1-player-selected.png" id="6_fa0uo"]
 [ext_resource type="Texture2D" uid="uid://bdx7ov78x2n" path="res://assets/art/ui/mainmenu/2-players.png" id="7_3kkw7"]
 [ext_resource type="Texture2D" uid="uid://bnt2w7ujd12c0" path="res://assets/art/ui/mainmenu/ball-selection.png" id="8_du1io"]
+
+[sub_resource type="Animation" id="Animation_1h8ap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Backgound/TitleTexture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(25, 20)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Backgound/SinglePlayerTexture:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35, 100)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Backgound/TwoPlayerTexture:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(35, 125)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Backgound/Mask:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(155, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Backgound/PlayerOneControls:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Backgound/PlayerTwoControls:modulate")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Backgound/SelectionIcon:modulate")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_nawi7"]
 resource_name = "start"
@@ -113,97 +200,25 @@ tracks/7/keys = {
 }]
 }
 
-[sub_resource type="Animation" id="Animation_1h8ap"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4ap7"]
+_data = {
+&"RESET": SubResource("Animation_1h8ap"),
+&"start": SubResource("Animation_nawi7")
+}
+
+[sub_resource type="Animation" id="Animation_ai35v"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Backgound/TitleTexture:position")
+tracks/0/path = NodePath("Backgound/SelectionIcon:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(25, 20)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Backgound/SinglePlayerTexture:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(35, 100)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Backgound/TwoPlayerTexture:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(35, 125)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Backgound/Mask:position")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(155, 0)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Backgound/PlayerOneControls:modulate")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("Backgound/PlayerTwoControls:modulate")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("Backgound/SelectionIcon:modulate")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_u4ap7"]
-_data = {
-&"RESET": SubResource("Animation_1h8ap"),
-&"start": SubResource("Animation_nawi7")
+"values": [0.0]
 }
 
 [sub_resource type="Animation" id="Animation_du1io"]
@@ -222,21 +237,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0.0, 1.5708, 3.14159, 4.71239]
-}
-
-[sub_resource type="Animation" id="Animation_ai35v"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Backgound/SelectionIcon:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ai35v"]

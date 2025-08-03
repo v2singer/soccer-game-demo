@@ -20,7 +20,7 @@ var is_checking_for_kickoff_readiness := false
 
 func _init() -> void:
 	GameEvents.team_reset.connect(on_team_reset.bind())
-	GameEvents.impact_received.connect(on_impact_received_bind())
+	GameEvents.impact_received.connect(on_impact_received.bind())
 
 func _ready() -> void:
 	squad_home = spawn_players(GameManager.countries[0], goal_home)
@@ -121,7 +121,7 @@ func on_team_reset() -> void:
 	is_checking_for_kickoff_readiness = true
 
 
-func on_impact_received_bind(impact_position: Vector2, _is_high_impact: bool) -> void:
+func on_impact_received(impact_position: Vector2, _is_high_impact: bool) -> void:
 	var spark := SPARK_PREFAB.instantiate()
 	spark.position = impact_position
 	add_child(spark)
