@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bulpmwjb7ihed"]
+
+[ext_resource type="Script" uid="uid://b3c1m3uhtkahj" path="res://scenes/screens/screen_game.gd" id="1_punwm"]
+
+[node name="ScreenGame" type="Node2D"]
+script = ExtResource("1_punwm")

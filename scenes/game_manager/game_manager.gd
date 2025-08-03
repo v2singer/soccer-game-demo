@@ -22,7 +22,6 @@ func _init() -> void:
 func _ready() -> void:
 	time_left = DURATION_GAME_SEC
 	GameEvents.impact_received.connect(on_impact_received.bind())
-	switch_state(State.RESET)
 
 
 func _process(_delta: float) -> void:
@@ -37,6 +36,10 @@ func switch_state(state: State, data: GameStateData = GameStateData.new()) -> vo
 	current_state.state_transition_requested.connect(switch_state.bind())
 	current_state.name = "GameStateMachine: " + str(state)
 	call_deferred("add_child", current_state)
+
+
+func start_game() -> void:
+	switch_state(State.RESET)
 
 
 func is_coop() -> bool:

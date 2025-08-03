@@ -1,5 +1,5 @@
 class_name MainMenuScreen
-extends Control
+extends Screen
 
 
 const MENU_TEXTURE := [
@@ -48,6 +48,7 @@ func submit_selection() -> void:
 	var country_default := DataLoader.get_countries()[1]
 	var player_two := "" if current_selected_index == 0 else country_default
 	GameManager.player_setup = [country_default, player_two]
+	transition_screen(ScreenGame.ScreenType.TEAM_SELECTION)
 
 
 func on_set_active() -> void:
