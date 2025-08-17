@@ -8,6 +8,7 @@ func _init() -> void:
 		ScreenGame.ScreenType.IN_GAME : preload("res://scenes/screens/world/world_screen.tscn"),
 		ScreenGame.ScreenType.MAIN_MENU : preload("res://scenes/screens/main_menu/main_menu_screen.tscn"),
 		ScreenGame.ScreenType.TEAM_SELECTION : preload("res://scenes/screens/team_selection/team_selection_screen.tscn"),
+		ScreenGame.ScreenType.TOURNAMENT: preload("res://scenes/screens/tournament/tournament_screen.tscn"),
 	}
 
 

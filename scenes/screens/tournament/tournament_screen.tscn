@@ -1,8 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dqjff6bcmnd71"]
+[gd_scene load_steps=8 format=3 uid="uid://dqjff6bcmnd71"]
 
 [ext_resource type="Script" uid="uid://ckmo1e508dqry" path="res://scenes/screens/tournament/tournament_screen.gd" id="1_hvkgv"]
 [ext_resource type="Texture2D" uid="uid://ystgo0bfp1kx" path="res://assets/art/ui/teamselection/tournament-screen.png" id="2_m0rxb"]
-[ext_resource type="PackedScene" uid="uid://dyav8e0y0my12" path="res://scenes/screens/tournament/bracket_flag.tscn" id="3_3kbg6"]
 [ext_resource type="Texture2D" uid="uid://b47ib1k83c18p" path="res://assets/art/ui/flags/flag-vseparator.png" id="4_ru4pj"]
 [ext_resource type="Texture2D" uid="uid://7ouv1w1e0ot8" path="res://assets/art/ui/flags/flag-hseparator.png" id="5_ru4pj"]
 [ext_resource type="Texture2D" uid="uid://bdthl7ajeyq7g" path="res://assets/art/ui/teamselection/worldcup-label.png" id="6_7eqbv"]
@@ -30,32 +29,33 @@ theme_override_constants/separation = 0
 alignment = 1
 
 [node name="QFLeftContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="BracketFlag" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VLink" type="TextureRect" parent="Background/BracketsContainer/QFLeftContainer"]
 layout_mode = 2
 texture = ExtResource("4_ru4pj")
 
-[node name="BracketFlag2" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag2" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VPadding" type="Control" parent="Background/BracketsContainer/QFLeftContainer"]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="BracketFlag3" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag3" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VLink2" type="TextureRect" parent="Background/BracketsContainer/QFLeftContainer"]
 layout_mode = 2
 texture = ExtResource("4_ru4pj")
 
-[node name="BracketFlag4" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag4" parent="Background/BracketsContainer/QFLeftContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="HPadding" type="Control" parent="Background/BracketsContainer"]
@@ -63,18 +63,19 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="SFLeftContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="BracketFlag" parent="Background/BracketsContainer/SFLeftContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag" parent="Background/BracketsContainer/SFLeftContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VLink" type="TextureRect" parent="Background/BracketsContainer/SFLeftContainer"]
 layout_mode = 2
 texture = ExtResource("4_ru4pj")
 
-[node name="BracketFlag2" parent="Background/BracketsContainer/SFLeftContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag2" parent="Background/BracketsContainer/SFLeftContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="HPadding2" type="Control" parent="Background/BracketsContainer"]
@@ -82,11 +83,12 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="FinalLeftContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="BracketFlag" parent="Background/BracketsContainer/FinalLeftContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag" parent="Background/BracketsContainer/FinalLeftContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="FinalLink" type="VBoxContainer" parent="Background/BracketsContainer"]
@@ -100,11 +102,12 @@ layout_mode = 2
 texture = ExtResource("5_ru4pj")
 
 [node name="FinalRightContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="BracketFlag" parent="Background/BracketsContainer/FinalRightContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag" parent="Background/BracketsContainer/FinalRightContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="HPadding4" type="Control" parent="Background/BracketsContainer"]
@@ -112,18 +115,19 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="SFRightContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="BracketFlag" parent="Background/BracketsContainer/SFRightContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag" parent="Background/BracketsContainer/SFRightContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VLink" type="TextureRect" parent="Background/BracketsContainer/SFRightContainer"]
 layout_mode = 2
 texture = ExtResource("4_ru4pj")
 
-[node name="BracketFlag2" parent="Background/BracketsContainer/SFRightContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag2" parent="Background/BracketsContainer/SFRightContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="HPadding3" type="Control" parent="Background/BracketsContainer"]
@@ -131,32 +135,33 @@ custom_minimum_size = Vector2(2, 0)
 layout_mode = 2
 
 [node name="QFRightContainer" type="VBoxContainer" parent="Background/BracketsContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 0
 alignment = 1
 
-[node name="BracketFlag" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VLink" type="TextureRect" parent="Background/BracketsContainer/QFRightContainer"]
 layout_mode = 2
 texture = ExtResource("4_ru4pj")
 
-[node name="BracketFlag2" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag2" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VPadding" type="Control" parent="Background/BracketsContainer/QFRightContainer"]
 custom_minimum_size = Vector2(0, 8)
 layout_mode = 2
 
-[node name="BracketFlag3" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag3" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="VLink2" type="TextureRect" parent="Background/BracketsContainer/QFRightContainer"]
 layout_mode = 2
 texture = ExtResource("4_ru4pj")
 
-[node name="BracketFlag4" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("3_3kbg6")]
+[node name="BracketFlag4" parent="Background/BracketsContainer/QFRightContainer" instance=ExtResource("8_v5v2t")]
 layout_mode = 2
 
 [node name="PressKeyLabel" type="Label" parent="Background"]
@@ -186,6 +191,7 @@ grow_horizontal = 2
 texture = ExtResource("6_7eqbv")
 
 [node name="StageTexture" type="TextureRect" parent="Background"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -198,6 +204,7 @@ grow_horizontal = 2
 texture = ExtResource("7_702pu")
 
 [node name="WinnerContainer" type="Control" parent="Background"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(66, 42)
 layout_mode = 1
 anchors_preset = 7

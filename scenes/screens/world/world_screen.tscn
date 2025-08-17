@@ -146,3 +146,8 @@ collision_mask = 3
 sync_to_physics = false
 
 [node name="UI" parent="." instance=ExtResource("11_rs40n")]
+
+[node name="GameOverTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
