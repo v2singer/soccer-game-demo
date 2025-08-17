@@ -6,8 +6,6 @@ const DURATION_GAME_SEC := 2 * 60
 
 enum State {IN_PLAY, SCORED, RESET, KICKOFF, OVERTIME, GAMEOVER}
 
-#var countries : Array[String] = ["FRANCE", "USA"]
-#var score : Array[int] = [0, 0]
 
 var current_match : Match = null
 var current_state : GameState = null
@@ -22,7 +20,6 @@ func _init() -> void:
 
 
 func _ready() -> void:
-	time_left = DURATION_GAME_SEC
 	GameEvents.impact_received.connect(on_impact_received.bind())
 
 
@@ -41,8 +38,8 @@ func switch_state(state: State, data: GameStateData = GameStateData.new()) -> vo
 
 
 func start_game() -> void:
+	time_left = DURATION_GAME_SEC
 	switch_state(State.RESET)
-
 
 func is_coop() -> bool:
 	return player_setup[0] == player_setup[1]

@@ -22,7 +22,7 @@ func find_teammate_in_view() -> Player:
 	var players_in_view := teammate_detection_area.get_overlapping_bodies()
 	var teammate_in_view : Array[Player] = []
 	for pitem in players_in_view:
-		if pitem is Player and pitem != player:
+		if pitem is Player and pitem != player and pitem.country == player.country:
 			teammate_in_view.append(pitem)
 
 	teammate_in_view.sort_custom(

@@ -4,8 +4,15 @@ extends Node
 
 signal screen_transition_requested(new_screen: ScreenGame.ScreenType, data: ScreenData)
 
+@export var music : MusicPlayer.Music
+
+
 var game : ScreenGame = null
 var screen_data : ScreenData = null
+
+
+func _enter_tree() -> void:
+	MusicPlayer.play_music(music)
 
 
 func setup(c_game: ScreenGame, c_data: ScreenData) -> void:
@@ -15,4 +22,3 @@ func setup(c_game: ScreenGame, c_data: ScreenData) -> void:
 
 func transition_screen(new_screen: ScreenGame.ScreenType, data: ScreenData = ScreenData.new()):
 	screen_transition_requested.emit(new_screen, data)
-
